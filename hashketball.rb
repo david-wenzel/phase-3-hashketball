@@ -1,4 +1,5 @@
 # Write your code below game_hash
+require "pry"
 def game_hash
   {
     home: {
@@ -127,3 +128,24 @@ def game_hash
 end
 
 # Write code here
+
+def players 
+  game_hash[:home][:players].concat(game_hash[:away][:players])
+end
+
+
+
+def num_points_scored(player_name)
+  game_hash.each do |home_or_away, team_hash|
+    team_hash[:players].each do |player_hash| 
+      if player_hash[:player_name] == player_name
+        return player_hash[:points]
+      end
+    end
+  end
+end
+
+def big_shoe_rebounds
+  player = players.max {|player1, player2| player1[:shoe] <=> player2[:shoe]}
+  player[:rebounds]
+end
